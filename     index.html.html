@@ -1,0 +1,92 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#172033">
+<title>EBA Data — Prototype</title>
+<style>
+*{box-sizing:border-box}body{margin:0;background:#f5f7fb;color:#172033;font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif}
+.app{max-width:1050px;margin:auto;min-height:100vh}.top{background:#172033;color:#fff;padding:18px 20px}.brand{font-weight:800;font-size:18px}.brand small{display:block;font-weight:400;opacity:.7;font-size:12px;margin-top:3px}
+nav{display:flex;gap:8px;overflow:auto;padding:12px 16px;background:#fff;border-bottom:1px solid #e4e7ec}nav button{border:0;background:#f2f4f7;padding:10px 14px;border-radius:10px;font-weight:700;white-space:nowrap;color:#344054}nav button.active{background:#172033;color:#fff}
+main{padding:18px}.page{display:none}.page.active{display:block}.grid{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}@media(max-width:800px){.grid{grid-template-columns:1fr 1fr}}@media(max-width:520px){.grid{grid-template-columns:1fr}}
+.card{background:#fff;border:1px solid #e4e7ec;border-radius:16px;padding:16px;box-shadow:0 2px 8px rgba(16,24,40,.04);margin-bottom:14px}
+.stat .n{font-size:28px;font-weight:800}.muted{color:#667085;font-size:13px}.title{font-size:24px;font-weight:800;margin:5px 0}.btn{border:1px solid #d0d5dd;background:#fff;border-radius:11px;padding:10px 13px;font-weight:700}.primary{background:#172033;color:#fff;border-color:#172033}
+.row{display:flex;justify-content:space-between;align-items:center;gap:10px}table{width:100%;border-collapse:collapse;font-size:13px}th,td{text-align:left;padding:10px 5px;border-bottom:1px solid #eaecf0}
+.pill{background:#ecfdf3;color:#067647;padding:5px 9px;border-radius:99px;font-size:12px;font-weight:700}
+.buttons{display:grid;grid-template-columns:1fr 1fr;gap:10px}.tap{min-height:90px;border:1px solid #d0d5dd;border-radius:15px;background:#fff;font-weight:800;font-size:15px}.tap:active{transform:scale(.98)}
+input,select{width:100%;padding:11px;border:1px solid #d0d5dd;border-radius:10px;font:inherit}.field{margin:10px 0}.field label{display:block;font-size:12px;color:#667085;margin-bottom:5px}
+.progress{height:10px;background:#eef0f4;border-radius:99px;overflow:hidden}.bar{height:100%;background:#172033;width:0}
+.notice{padding:12px;border-radius:12px;background:#f8fafc;font-size:13px;line-height:1.5}
+</style>
+</head>
+<body>
+<div class="app">
+<header class="top"><div class="brand">Effective Behavioral Approach<small>EBA Data — ABA Data Tracker • Prototype</small></div></header>
+<nav id="nav">
+<button class="active" data-page="dashboard">Dashboard</button><button data-page="clients">Clients</button><button data-page="goals">Goals</button><button data-page="sessions">Sessions</button><button data-page="reports">Reports</button>
+</nav>
+<main>
+<section id="dashboard" class="page active">
+<div class="title">Admin Dashboard</div><p class="muted">Prototype view for an agency administrator / BCBA.</p>
+<div class="grid">
+<div class="card stat"><div class="muted">Staff</div><div class="n">4</div></div><div class="card stat"><div class="muted">Clients</div><div class="n">12</div></div><div class="card stat"><div class="muted">Active Goals</div><div class="n">31</div></div><div class="card stat"><div class="muted">Sessions Today</div><div class="n">8</div></div>
+</div>
+<div class="card"><div class="row"><strong>Quick Start</strong><span class="pill">Prototype</span></div><p class="muted">Open a goal to begin one-tap data collection.</p><button class="btn primary" onclick="show('sessions')">Open Sessions</button></div>
+<div class="card"><strong>Today's Activity</strong><table><tr><th>Staff</th><th>Client</th><th>Goal</th><th>Status</th></tr><tr><td>Staff 1</td><td>Client A</td><td>Following Instructions</td><td>Completed</td></tr><tr><td>Staff 2</td><td>Client B</td><td>Requesting Break</td><td>In progress</td></tr><tr><td>Staff 3</td><td>Client C</td><td>Task Completion</td><td>Completed</td></tr></table></div>
+</section>
+
+<section id="clients" class="page">
+<div class="title">Clients</div><p class="muted">Prototype client list. Use de-identified names until secure production storage is configured.</p>
+<div class="card"><table><tr><th>Client</th><th>Assigned Staff</th><th>Goals</th><th></th></tr>
+<tr><td>Client A</td><td>Staff 1</td><td>4</td><td><button class="btn" onclick="show('goals')">Goals</button></td></tr>
+<tr><td>Client B</td><td>Staff 2</td><td>3</td><td><button class="btn" onclick="show('goals')">Goals</button></td></tr>
+<tr><td>Client C</td><td>Staff 3</td><td>2</td><td><button class="btn" onclick="show('goals')">Goals</button></td></tr>
+</table></div>
+</section>
+
+<section id="goals" class="page">
+<div class="title">Goal Builder</div><p class="muted">Create a reusable data-collection goal.</p>
+<div class="card">
+<div class="field"><label>Client</label><select><option>Client A</option><option>Client B</option></select></div>
+<div class="field"><label>Goal</label><input value="E will follow teacher directions independently within 10 seconds in 80% of opportunities across classroom activities."></div>
+<div class="grid" style="grid-template-columns:repeat(3,1fr)">
+<div class="field"><label>Measurement</label><select><option>Percentage of opportunities</option></select></div>
+<div class="field"><label>Response window</label><select><option>10 seconds</option></select></div>
+<div class="field"><label>Mastery</label><select><option>80%</option></select></div>
+</div>
+<p class="muted">Prompt levels: Independent • Verbal • Gestural • Physical</p>
+<button class="btn primary" onclick="alert('Prototype: goal saved.')">Save Goal</button>
+</div>
+</section>
+
+<section id="sessions" class="page">
+<div class="title">Data Collection</div><p class="muted">Following Teacher Instructions</p>
+<div class="card"><div class="row"><strong>Client A</strong><span id="timer" class="pill">00:00</span></div><button id="start" class="btn primary" style="width:100%;margin-top:12px">Start Session</button></div>
+<div class="card"><strong>Record Opportunity</strong><div class="buttons" style="margin-top:12px">
+<button class="tap" data-k="ind">🟢 Independent<br><span class="muted">within 10 sec</span></button><button class="tap" data-k="verb">🟡 Verbal Prompt</button><button class="tap" data-k="gest">🔵 Gestural Prompt</button><button class="tap" data-k="phys">🟣 Physical Prompt</button>
+</div></div>
+<div class="card"><div class="row"><strong>Current Session</strong><span id="total" class="pill">0 opportunities</span></div><div class="grid" style="margin-top:12px">
+<div class="card stat"><div class="muted">Independent</div><div id="ind" class="n">0</div><div id="indp" class="muted">0%</div></div>
+<div class="card stat"><div class="muted">Verbal</div><div id="verb" class="n">0</div><div id="verbp" class="muted">0%</div></div>
+<div class="card stat"><div class="muted">Gestural</div><div id="gest" class="n">0</div><div id="gestp" class="muted">0%</div></div>
+<div class="card stat"><div class="muted">Physical</div><div id="phys" class="n">0</div><div id="physp" class="muted">0%</div></div>
+</div><div style="margin-top:10px"><div class="row"><span class="muted">Independent toward 80%</span><strong id="goalp">0%</strong></div><div class="progress"><div id="bar" class="bar"></div></div></div></div>
+</section>
+
+<section id="reports" class="page">
+<div class="title">Reports</div><p class="muted">Prototype analytics and reporting view.</p>
+<div class="card"><strong>Following Instructions</strong><div class="notice" style="margin-top:10px">Independent response: <strong id="reportPct">0%</strong>. In production, this page will show session-by-session trends, baseline, mastery status, and export options.</div></div>
+<div class="card"><strong>Report Filters</strong><div class="grid" style="grid-template-columns:1fr 1fr;margin-top:10px"><select><option>All Staff</option></select><select><option>All Clients</option></select></div><button class="btn primary" style="margin-top:12px" onclick="alert('Prototype: report generated.')">Generate Report</button></div>
+</section>
+</main></div>
+<script>
+const state={ind:0,verb:0,gest:0,phys:0};let running=false,startTime=0,timer;
+function show(id){document.querySelectorAll('.page').forEach(x=>x.classList.remove('active'));document.getElementById(id).classList.add('active');document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('active',b.dataset.page===id))}
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>show(b.dataset.page));
+function render(){const t=Object.values(state).reduce((a,b)=>a+b,0);document.getElementById('total').textContent=t+' opportunit'+(t===1?'y':'ies');for(const k of Object.keys(state)){document.getElementById(k).textContent=state[k];document.getElementById(k+'p').textContent=(t?Math.round(state[k]/t*100):0)+'%'}const p=t?Math.round(state.ind/t*100):0;document.getElementById('goalp').textContent=p+'%';document.getElementById('bar').style.width=p+'%';document.getElementById('reportPct').textContent=p+'%'}
+document.querySelectorAll('.tap').forEach(b=>b.onclick=()=>{if(!running){alert('Start the session first.');return}state[b.dataset.k]++;render()});
+document.getElementById('start').onclick=()=>{if(!running){Object.keys(state).forEach(k=>state[k]=0);running=true;startTime=Date.now();document.getElementById('start').textContent='End Session';timer=setInterval(()=>{let s=Math.floor((Date.now()-startTime)/1000);document.getElementById('timer').textContent=String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')},500)}else{running=false;clearInterval(timer);document.getElementById('start').textContent='Start New Session';alert('Prototype session saved.');}render()};render();
+</script>
+</body>
+</html>
